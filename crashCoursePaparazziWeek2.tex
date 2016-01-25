@@ -1,0 +1,62 @@
+\documentclass{article}
+
+\input{ccpap}
+
+\begin{document}
+\ccpmaketitle{Using optitrack and programming your own flightplan}{\ldots Your first autonomous flight}{Lesson 2}
+
+\subsection*{Introduction}
+This week is a very exciting week: you are going to have your first manual flight and you are going to perform your first autonomous flight. Although you have a written document in front of you, you will mainly use our video tutorials on Youtube. This document will merely guide you through the videos, consider the videos as your main resource if you have any questions. 
+
+\subsection*{Goals of this today}
+\begin{itemize}
+\item Download and install Paparazzi
+\item Upload a program to your drone
+\item Fly manually with your drone
+\item Get a 3D fix on your drone
+\item Perform your first autonomous flight
+\item Create a safety rule
+\end{itemize}
+
+\subsection*{Downloading and installing Paparazzi}
+Paparazzi only runs on Linux. If you have your own Virtualbox or have Linux installed you can follow the instructions on this site: XXX.
+If not, you can download a pre-made virtual box that has everything installed here: XXXX
+
+\subsection*{Uploading your first program}
+You are now going to upload your first program to the Bebop. Watch this video to see how this is done: XXX
+
+\subsection*{Fly manually with a joystick }
+Now it's time to test if your drone works. Plug in your hobbyking joystick and start all the programs you saw in the videos. 
+Check if your joystick is working by flipping the mode switch. If the mode changes in the ground station you know that part is working. 
+We start by checking if the drone works by holding it in our hand. If something is wrong, your drone will not fly to the ceiling and crash. 
+Put the drone in ATT mode and arm the motors by putting the left stick to the most lower-right position. If everything went well the motors should now be spinning relatively slowly. Put the left stick up to give more throttle and verify that this works. Now try if pitch and roll work. 
+Also test if the drone steers in the correct direction when turning the drone with your hand. If the drone is tilted to the left it should give more thrust with its leftmost propellors. 
+
+If all these checks worked it is time to take your first manual drone-flight! 
+
+\subsection*{Using the optitrack system}
+To start using the optitrack system, watch this video: XXX
+As soon as you have a 3D fix carry your drone through the arena and verify that:
+\begin{itemize}
+\item The position of your drone is correct: if you walk to the left the drone on your GCS will go to the left.
+\item The heading of your drone is correct: look in different directions and verify the drone is looking in the right direction.
+\item The positions of your waypoints are correct: walk with your drone to the waypoints in your flightplan and verify that they are inside the arena and safely reachable for the drone. 
+\end{itemize}
+
+\subsection*{Your first autonomous flight}
+If and only if you verified that everything mentioned above is correctly working (is the joystick still working so you can take over?) you can start your first autonomous flight. 
+Set the drone in navigation mode and select start motor in the ground control station. If your flightplan is correct the drone will now start hovering in the arena. Congratulations: you are now flying autonomously!
+
+You already checked your waypoints before, let the drone fly to one of them by selecting that specific block. 
+
+
+\subsection*{Create a safety rule}
+Last week we discussed several problems that can make your drone crash, such as an empty battery or losing GPS. When programming your autonomous drone you will probably encounter more ways to crash that you can detect before they happen. For example: coming too close to the wall of the arena. 
+When flying your drone you want your drone to do something as soon as these dangerous situations occur:
+\begin{itemize}
+\item If your battery is empty, you want to land
+\item If your gps is lost you want to land
+\item If you fly to the wall of the arena you want to stay at the last safe point you found. 
+\end{itemize}
+The paparazzi flightplan allows you to create exceptions: when the check of that exception becomes true the drone will execute a certain block. Look at the airframe file XXX to see how these exceptions are implemented. 
+\end{document}

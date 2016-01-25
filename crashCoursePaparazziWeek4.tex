@@ -1,0 +1,39 @@
+\documentclass{article}
+
+\input{ccpap}
+
+\begin{document}
+\ccjmaketitle{Computer vision}{\ldots Making your drone see something}{lesson 4}
+
+\subsection*{Introduction}
+
+
+\subsection*{Goals of this exercise}
+\begin{itemize}
+\item Finding the camera data
+\item The format of the image
+\item First small projects
+\end{itemize}
+
+\subsection*{Finding the camera data}
+To get data out of the camera in paparazzi you have to include the video\_thread.xml module in your airframe file, and define VIDEO\_THREAD\_CAMERA to front\_camera.
+After you added this you can create a new module that does something with the data of the front camera. A nice example is the colorfilter module. Please take some time to check what the colorfilter does. 
+In the colorfilter\_init function the function cv\_add is called with as argument the colorfilter\_func function. 
+Now each time the video thread gets an image from the camera it calls the colorfilter\_func function with the new image as an argument. Note that the order in which you call cv\_add is important. If you add functions, the first one you added will be called first. As the argument the function gets is a pointer to an image it is possible for a module to change the actual image. The colorfilter also does this, if you add both a colorfilter that filters on orange, and then a colorfilter that filters on red, the second colorfilter will never see red. 
+
+\subsection*{The format of the image}
+
+\subsection*{First steps}
+Nice first exercises are:
+\subsubsection*{Avoid orange}
+ keep flying forward untill you detect a lot of orange pixels in your image. Then hover at that place. 
+Try this by letting the drone fly through the arena and suddenly putting an orange pole in front of its forward camera.
+
+\subsubsection*{Read a sign}
+Fly to a position in the center of the arena. If you see a blue sign fly to a waypoint to the left for five seconds, if you see a red sign fly to a waypoint to the right for five seconds. 
+
+\subsubsection*{Follow me!}
+Create a real "selfie-drone" in which the camera follows a red blob. 
+Start by hovering at a waypoint and determining where the red blob is (more to the left or more to the right?) and adjust your heading based on this. 
+To start following you you can determine the size of the blob. Is it too big? Fall back! Otherwise: fly slowly forwards.
+\end{document}

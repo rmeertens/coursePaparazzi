@@ -1,0 +1,28 @@
+\usepackage[margin=3cm]{geometry}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{xcolor}
+\definecolor{code}{rgb}{.92,.92,.99}
+\definecolor{codered}{rgb}{.92,.62,.62}
+\definecolor{darkgreen}{rgb}{.2,.62,.18}
+\usepackage{listings}
+\lstset{xrightmargin=10pt,xleftmargin=10pt,language=Java,captionpos=b,tabsize=3,frame=none,keywordstyle=\color{blue},commentstyle=\color{darkgreen},stringstyle=\color{red},showstringspaces=false,basicstyle=\footnotesize\ttfamily,emph={label},backgroundcolor=\color{code}}
+%%numbers=left,numberstyle=\tiny,numbersep=5pt,breaklines=true,\
+
+\newenvironment{code}
+{\begin{minipage}[l]{\textwidth}}
+{\end{minipage}}
+
+\newcommand{\ccpmaketitle}[3] {
+	\fancyhead[LO,LE]{Crash Course Paparazzi 2016}
+	\fancyfoot[LO,LE]{{\small introPaparazzi}}
+	\fancyfoot[CO,CE]{\thepage}
+	\author{Roland Meertens, Christophe de Wagter, Guido de Croon}
+	\title{\bf Crash Course Paparazzi 2016\\#1\\{\large #3#2}}
+	\date{Februari 2016}
+	\setlength{\parindent}{0em}
+	\maketitle
+}
