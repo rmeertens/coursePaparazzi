@@ -6,8 +6,8 @@
 \ccpmaketitle{Creating code}{\ldots Making decisions}{Lesson 3}
 
 \subsection*{Introduction}
-Last week you were able to let your drone follow a flightplan. Unfortunately you were manually placing your waypoints, and manually selecting what block to fly. This week we are going to spice things up by letting the drone decide what to do. 
-
+Last week you could to let your drone follow a flight plan. You were manually placing your waypoints, and manually selecting what block to fly. This week will spice things up by letting the drone decide what to do. 
+To do this we will try writing code, but not before more explanations of Paparazzi are given. 
 \subsection*{Goals of this week}
 \begin{itemize}
 \item Know how and where to get help
@@ -17,15 +17,19 @@ Last week you were able to let your drone follow a flightplan. Unfortunately you
 \item Moving waypoints
 \end{itemize}
 \subsection*{How to get help}
-You are now working with a very good tool: the paparazzi autopilot. This autopilot is written in the C language. If you are not a good programmer yet it can be a big hurdle to suddenly start programming your own programs with Paparazzi. Personally I would like to recommend the book "Head first C" (you might be able to find it on the internet). The book is full with strange images and explanations, but don't let this stop you from reading the book. I personally found that it was easier to learn C with a book full of wacky images than with a very dry book. 
+As you start working with the Paparazzi autopilot you will get loads of questions. Paparazzi is written in the C language, and it can be a big hurdle to start programming in this language. I recommend reading the book "Head first C". Although the book is full with strange images, the explanations are very clear. 
 
-If you can't find something in Paparazzi use the "Find in file" function of Eclipse. This will help you find the files or variables you are searching for.
-If you can't find it with Eclipse you can try searching the Paparazzi wiki. Almost everything is documented there. 
-If you still can't find a specific paparazzi function chat with the developers of Paparazzi on gitter.im/paparazzi.
-If you have any questions about the C language: everybody has. Please check stack overflow for answers to your question before posting it to blackboard.
+Here is where you can get help if you are stuck: 
+\begin{itemize}
+\item If you can't find something in Paparazzi use the "Find in file" function of Eclipse. This will help you find the files or variables you are searching for.
+\item If you can't find it with Eclipse you can try searching the Paparazzi wiki. Almost everything is documented there. 
+\item If you still can't find a specific Paparazzi function chat with the developers of Paparazzi on gitter.im/paparazzi.
+\item If you have questions about the C language: check Stackoverflow for answers to your question.
+\end{itemize}
 
 \subsection*{Adding a module}
-A tutorial on how to add a module to your program can be found here: XXX
+A tutorial on how to add a module to your program can be found here: http://wiki.paparazziuav.org/wiki/Modules.
+Be sure to check the create module tool that is already available to you in Paparazzi. 
 
 \subsection*{Learning how to debug}
 When programming your drone you will often find that the drone does not do what you want. In that case there are two ways to check what the values of variables on your drone are:
@@ -33,47 +37,55 @@ When programming your drone you will often find that the drone does not do what 
 	\item Paparazzi messages
 	\item Printing to the terminal
 \end{itemize}
-To learn more about paparazzi messages check this webpage: XXXX
+To learn more about paparazzi messages check this webpage: http://wiki.paparazziuav.org/wiki/Telemetry
 As for printing to the terminal: you can use the following in your code:
+
+\begin{verbatim}
 printf("Integer variable: %d\n",myIntegerVariable);
+\end{verbatim}
 To see this text appear open a terminal on your laptop and type:
+\begin{verbatim}
 telnet 192.168.1.1
 cd data/video/paparazzi
-%killall -9 ap.elf && ./ap.elf
-
-Your program is now restarted, and your printf message will appear. 
+killall -9 ap.elf && ./ap.elf
+\end{verbatim}
+Your program is now restarted, and your message will appear in your terminal. 
 
 \subsection*{Making decisions onboard}
-As you saw last week you can leave blocks by adding an exception that evaluates to true. 
+As you saw last week you can leave blocks in your flight plan by adding an exception. Paparazzi allows you to use a variable of your module as a trigger for an exception. When the variable you selected is not equal to zero, the exception will occur and a next block is selected. 
 Let's try to create the following behaviour: 
 \begin{itemize}
 \item Start at waypoint one, and enter your newly created block. 
 \item The drone will now fly towards waypoint two. 
 \item As soon as the drone spent five seconds flying towards this waypoint (or was there for too long) we fly back to waypoint one. 
 \end{itemize}
-Checking if the drone spent a long time in a block can be dont in the block itself with the line:
+Checking if the drone spent a long time in a block can be done in the block itself with the line:
+\begin{verbatim}
 XXXXX > 5
-However, we are going to create this as a function in your module.h file as such:
+\end{verbatim}
+However, we will create this as a function in your module.h file as such:
+\begin{verbatim}
 extern void spentLongTimeInBlock(int timeInBlock){
 	return timeInBlock > 5;
 }
-And add it to our block as such:
-%<exception spentLongTimeInBlock(XXXX)/>
-
+\end{verbatim}
+And add it to our block:
+\begin{verbatim}
+<exception spentLongTimeInBlock(XXXX)/>
+\end{verbatim}
 Fly and verify that your program works. Now you know that you can create functions and exceptions yourself!
 
-\subsection*{Moving waypoints}
+\subsection*{Exercise: moving waypoints}
 Now that we can make decisions we can also move waypoints. The goal of this exercise is to fly in the pattern of a house inside the arena. 
-%We do this by flying to a waypoint (WP_GOAL) and when we reach this waypoint we move the waypoint to a new place. 
-\textbf{Exercise: create a flightplan that performs this behaviour with two blocks}
+We do this by flying to a waypoint (WP\_GOAL) and when we reach this waypoint we move the waypoint to a new place. 
 
 \begin{enumerate}
-\item Start by creating a function that takes a waypoint as input (note: the waypoint variables can be found in XXX).
-\item Look at the following functions that are already in Paparazzi that do something with waypoints: XXX, XXX, XXX and XXX. 
+\item Start by creating a function that takes a waypoint as input (note: the waypoint variables can be found in var/aircrafts/bebop/generated/flight\_plan.h).
+\item Look at the functions that are already in Paparazzi that do something with waypoints in the file sw/airborne/firmwares/rotorcraft/navigation.h. 
 \end{enumerate}
 
-Now you should be able to set a waypoint in one corner of the arena, and move this waypoint in the shape of a quare or house by placing it at different points in the arena.
+Now you should be able to set a waypoint in one corner of the arena, and move this waypoint in the shape of a quare or house by placing it at different points in the arena as soon as you reach them. 
 
-You can either move a waypoint relative to its old position, or you can move it relative to your current position and heading. Now try to do the same by placing your waypoints relative to the drone. As an exercise you should make a placeRelative function that takes a waypoint and a relative move as input and moves the waypoints taking the yaw of the drone into account. 
+You can either move a waypoint relative to its old position, or you can move it relative to your current position and heading. To do the latter you should make a placeRelative function that takes a waypoint and a relative move as input and moves the waypoints taking the yaw of the drone into account. This function will surely be of much use in the next few weeks. 
 
 \end{document}
