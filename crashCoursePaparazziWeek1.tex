@@ -6,26 +6,26 @@
 \ccpmaketitle{Safety}{\ldots safety}{Lesson1}
 
 \subsection*{Introduction}
-Welcome to the first lesson of a short and gentle introduction to programming autonomous drones. As we will see this lesson it is easy to break a drone while trying to make it autonomous. Luckily you can avoid all crashes by simply following several rules. This week we discuss how you can break drones, how to prevent this, and how to teach yourself to fly a drone. 
+Welcome to the first lesson of a short and gentle introduction to programming autonomous drones. As we will see in this lesson it is easy to break a drone while trying to make it autonomous. Luckily you can avoid all crashes by simply following several rules. This week we discuss how you can break drones, how to prevent this, and how to teach yourself to fly a drone. 
 
 \subsection*{Goals of this exercise}
 \begin{itemize}
 \item Learn how drones break
-\item Know when to stop flying
-\item Learn how to fly your drone (so you can land it safely)
+\item Know when to stop flying, and when not to start flying
+\item Learn how to fly your drone (so you can recover your drone when automation shows unexpected situations)
 \end{itemize}
 
 \subsection*{Why do drones and batteries break? (and how can YOU break them?)}
 Breaking a drone is easy, they tend to break when they fall on the ground, or get stuck in the net. As you will create an autonomous drone during this course, it is important to start with learning how to prevent breaking this fragile and expensive (600 euros) machine. The most common reasons for a drone and/or its battery to break are:
 \begin{itemize}
-\item Low power: when the battery is drained too much the drone will fall down. Sometimes the battery has enough charge to keep the drone in the air, but not enough charge to perform a special manouevre such as yawing. It then starts to behave strange, as the battery can't provide enough trust for all the motors. This behaviour will start suddenly, it is important to stop flying in time! The battery of the Bebop will become dangerously low if it is below 11.1 volts (and 3.2 volts for the pocket drones).  
+\item Low power: when the battery is drained too much the drone will fall down. Sometimes the battery has enough charge to keep the drone in the air, but not enough charge to perform a special manouevre such as yawing. It then starts to behave strange, as the battery can't provide enough trust for all the motors. This behaviour will start suddenly, so it is important to stop flying in time! The battery of the Bebop will become dangerously low if it is below 11.1 volts (and 3.2 volts for the pocket drones).  
 
-When you fly too long with a battery not only do you risk breaking the drone, you will definitely break the battery itself. Flying too long makes the batteries unreliable, which can be very dangerous. 
-\item Lost GPS: knowing its location is important for your drone. When you are navigating on a flight plan your drone tries to reach a certain waypoint. If the location of the drone is not updated it thinks it has to go on and on, until it hits a wall. 
+When you fly too long with a battery not only do you risk breaking the drone, you will definitely break the battery itself. Flying too long makes the batteries lose capacity, and in the end makes them unreliable. Batteries with low capacities can lead to dangerous situations. 
+\item Lost GPS: knowing its location is important for your drone when it is flying autonomously. When you are navigating on a flight plan your drone tries to reach a certain waypoint. If the location of the drone is not updated it thinks it has to go on and on, until it hits a wall. 
 
-During this course the position of the drone is supplied by a computer in the Cyberzoo: the Optitrack system. Sometimes this system can break, or somebody puts the wrong settings in the Optitrack computer. Be sure to always check if the GPS data is correct before every flight. 
+During this course the position of the drone is supplied by a computer in the Cyberzoo: the Optitrack system. Sometimes this system can break, or somebody puts the wrong settings in the Optitrack computer, or the connection to your drone is lost. Be sure to always check if the GPS data is correct before every flight and program an appropriate landing as soon as the GPS is lost. Also be prepared to take over your drone manually at any time. 
 
-\item Lost Wifi: when this happens the drone receives nothing from your laptop. This means that the joystick commands you give don't reach the drone, and that the GPS is not updated anymore. 
+\item Lost Wifi: when this happens the drone receives nothing from your laptop. This means that the joystick commands you give don't reach the drone, and that the GPS is not updated anymore. To prevent this you will need to program a fail-safe mode. Note that you lose wifi more often when there are many laptops or drones in the arena. 
 \item Bad code: Programming the wrong code will mean your drone does something unexpected. Examples are: 
 \begin{itemize}
 	\item Not detecting an obstacle and therefore flying into this obstacle. 
@@ -42,7 +42,7 @@ All mistakes in the previous section can and should be prevented. Although the B
 
 \item Always check that your drone has a good gps fix. If it loses GPS the drone can start an automatic landing procedure, but only if you program this in the flight plan. Paparazzi also warns you when your GPS is lost by speaking to you, again: you may not fly without using this function. 
 
-Unfortunately Optitrack can't track your drone in the corners of the Cyberzoo. It is therefore important to avoid these places. It is possible to create a procedure when your drone leaves the center of the arena, make sure to turn this on, and make sure it works by testing it. 
+Unfortunately Optitrack can't track your drone in the corners of the Cyberzoo. It is therefore important to avoid these places. It is possible to create a procedure when your drone leaves the center of the arena, make sure to turn this on, and make sure it works by testing it. Be sure to always have a trained safety pilot ready to take manual control when things go wrong. 
 
 \item Practice your drone flying skills in a simulator. If your drone does not do what you expect it to do you can still save it manually. If your flying skills are not good you will cause even more damage while trying so save your drone. As your brain needs to train itself in flying a drone in all positions, using a simulator for a few days will definitely prevent drone crashes. We will tell you more about a good simulator in the next section. 
 
@@ -51,7 +51,7 @@ Unfortunately Optitrack can't track your drone in the corners of the Cyberzoo. I
 \end{itemize}
 
 \subsection*{Using Heli-X}
-Heli-X is a good simulator that has a free trial version. The two interesting aircrafts in this version are the DJI Phantom (a quadcopter) and the Logo 600. If you can fly the DJI Phantom in the simulator you have a higher chance of recovering your ARDrone is something goes wrong in the air. To test your flying skills you should also try out the Logo 600 with rate control. The Logo 600 is harder to control, so if you can fly it in the simulator (challenge: try to fly it upside down) you have an even higher chance of recovering your ARDrone. 
+Heli-X is a good simulator that has a free trial version. The two interesting aircrafts in this version are the DJI Phantom (a quadcopter) and the Logo 600. If you can fly the DJI Phantom in the simulator you have a higher chance of recovering your ARDrone is something goes wrong in the air. To test your flying skills you should also try out the Logo 600 with rate control. The Logo 600 is harder to control, so if you can fly it in the simulator you have an even higher chance of recovering your ARDrone. It is very important to test if you can fly a drone nose-in (with its nose pointing towards you). When you can do this perfectly you can consider yourself good enough to serve as a safety pilot during this course. 
  
 To start using Heli-X:
 \begin{enumerate}

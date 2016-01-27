@@ -15,6 +15,7 @@ This week is a very exciting week: you will have your first manual flight and yo
 \item Fly manually with your drone
 \item Get a 3D fix on your drone
 \item Perform your first autonomous flight
+\item Edit your flightplan
 \item Create a safety rule
 \end{itemize}
 
@@ -52,7 +53,18 @@ If and only if you verified that everything mentioned above is correctly working
 Set the drone in navigation mode and select start motor in the ground control station. If your flight plan is correct the drone will now hover in the arena. Congratulations: you are now flying autonomously!
 
 You already checked your waypoints before, let the drone fly to one of them. To to so, select a block in your flight plan which has a certain waypoint as goal. 
+\subsection*{Edit your flightplan}
+Now the power of Paparazzi is in your hands: you can now create a totally autonomous drone with the power of a flightplan. Read this page to understand what you can do: http://wiki.paparazziuav.org/wiki/Flight\_Plans. 
+Make sure you understand:
+\begin{itemize}
+	\item What a waypoint is, and what a sector is. 
+	\item What exception, and while can do. 
+	\item What the vertical controls are that you can use (alt, climb, throttle).
+	\item What the navigation modes are that you can use (attitude, heading, go, path). 
+	\item How you can set a variable and call a function. 
+\end{itemize}
 
+Try to create a simple flightplan that performs something of your choice. 
 
 \subsection*{Create a safety rule}
 Last week we discussed several problems that can make your drone crash, such as an empty battery, losing GPS or coming too close to the wall of the arena.
