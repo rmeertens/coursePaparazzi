@@ -17,32 +17,80 @@ Welcome to the most important part of this course: understanding how vision work
 \end{itemize}
 
 \subsection*{Finding the camera data}
-To get data out of the camera in paparazzi you have to include the video\_thread.xml module in your airframe file, and define VIDEO\_THREAD\_CAMERA to front\_camera. Your modules section now looks like this:
+To get data out of the camera in paparazzi you have to include the video\_thread.xml module in your airframe file, and define VIDEO\_THREAD\_CAMERA to front\_camera. After you added this you can create a new module that does something with the data of the front camera. A nice example for such a module is the colorfilter module.
+If you want to see what the image looks like after it comes out of the camera or the color filter you have to can also include the video\_rtp\_stream  module. 
+The modules part of your airframe file might now look like this:
 \begin{verbatim}
-<modules>
-XXXXX
-</modules>
+  <modules main_freq="512">
+    <load name="geo_mag.xml"/>
+    <load name="air_data.xml"/>
+    <load name="send_imu_mag_current.xml"/>
+    <load name="video_thread.xml">
+      <define name="VIDEO_THREAD_FPS" value="4"/>
+      <define name="VIDEO_THREAD_CAMERA" value="front_camera"/>
+      <define name="VIDEO_THREAD_SHOT_PATH" value="/data/ftp/internal_000/images"/>
+    </load>
+    <load name="cv_colorfilter.xml">
+    </load>
+    <load name="video_rtp_stream.xml">
+     <define name="VIEWVIDEO_DOWNSIZE_FACTOR" value="1"/>
+     <define name="VIEWVIDEO_QUALITY_FACTOR" value="70"/>
+    </load>
+  </modules>
 \end{verbatim}
-After you added this you can create a new module that does something with the data of the front camera. A nice example for such a module is the colorfilter module. Take some time to check what the colorfilter does in the file colorfilter.c. 
+Upload this to your bebop. To view the video you create a .dsp file and copy paste this:
+\begin{verbatim}
+v=0
+m=video 5000 RTP/AVP 26
+c=IN IP4 0.0.0.0
+\end{verbatim}
+Open this file in VLC and you should see an image. 
+If you open your ground control station and go to settings--ColorFilter you can change what is filtered by the colorfilter. Look at the YUV colorspace on Wikipedia (https://en.wikipedia.org/wiki/YUV) and try to find settings that filter the color orange. If you open the RTP stream you can see what pixels are selected, they become red. 
+
+In the lab we tried filtering the color red, as found on our hands and little red and green balls. We used the following values, and obtained the following result:
+\begin{verbatim}
+y_min = 4
+y_max = 91
+u_min = 0
+u_max = 124
+v_min = 127
+v_max = 255
+\end{verbatim}
+\includegraphics[width=0.8\linewidth]{filtered}
+
+Note that you should NEVER stream images while flying. Note that streaming images takes a huge amount of bandwith. This can cause your joystick of optitrack position commands to be delayed (causing instability) or not even arrive. Make sure you only download very limited amounts of images while flying. A ruile of thumb is 4Hz of 70% mjpeg encoded images of 320x240 or less.  
+
+Take some time to check what the colorfilter does in the file colorfilter.c. 
 
 In the colorfilter\_init function the function cv\_add is called with as argument the colorfilter\_func function:
 \begin{verbatim}
-Code here
+
+void colorfilter_init(void)
+{
+  cv_add(colorfilter_func);
+}
+
 \end{verbatim}
 Now each time the video thread gets an image from the camera it calls the colorfilter\_func function with the new image as an argument:
 \begin{verbatim}
-Code here
+bool_t colorfilter_func(struct image_t* img)
+{
+  // Filter
+  color_count = image_yuv422_colorfilt(img,img,
+      color_lum_min,color_lum_max,
+      color_cb_min,color_cb_max,
+      color_cr_min,color_cr_max
+      );
+  return FALSE;
+}
 \end{verbatim}
 \includegraphics[width=0.8\linewidth]{camerafilter}
 
-Note that the order in which you call cv\_add is important. The first function to get the image might edit the image. If you add modules that do something with the image, the first module you added in your flightplan will get the image first. The reason that the image might be changed can be found in the way the image is given to a function: 
-\begin{verbatim}
-Code on how the image is called hee
-\end{verbatim}
-As the argument the function gets is a pointer to an image it is possible for a module to change the actual image. If you take a look at the colorfilter function you soo this module does this. By adding a colorfilter that filters on orange, a second module added after the colorfilter will only see orange. 
+Note that the order in which you call cv\_add is important. The first function to get the image might edit the image. If you add modules that do something with the image, the first module you added in your airframe file will get the image first. The reason that the image might be changed is because the functions is passed a pointer to the image. 
+As the argument the function gets is a pointer to an image it is possible for a module to change the actual image. If you take a look at the colorfilter function you see this module does this. Colorfilter sets UV to zero (makes the nonfiltered image grayscale) and enhances the color at the filtered colors. A second module added after the colorfilter will see a gray image with some enhanced colours. 
 
 \subsection*{The format of the image}
-Currently I don't know what format is used. Too bad...
+The image you receive is yuv422, or UYVY. Per two pixels four bytes of data are recorded. The U and V together define the color and both pixels get the same color (but different intensity). Image.c has several functions that can be used with this format. Please take a look at this file and try to understand what these functions are doing, how you can use them, and what other functions would be useful. 
 
 \subsection*{Your first project}
 Now it is time to choose an exercise to learn how to program in Paparazzi using your flightplan skills, code skills and computer vision skills. The two options are:
@@ -53,5 +101,5 @@ Fly to a position in the center of the arena. If you see a blue sign fly to a wa
 \subsubsection*{Choice 2: Follow me!}
 Create a real "selfie-drone" in which the drone follows an orange blob at a certain distance. 
 Start by hovering at a waypoint and determining where the orange blob is (more to the left or more to the right?) and adjust your heading based on this. 
-To start following you you can determine the size of the blob. Is it too big? Fall back! Otherwise: fly forwards by replacing your waypoint.
+To start following you, you can determine the size of the blob. Is it too big? Fall back! Otherwise: fly forwards by slowly moving your waypoint.
 \end{document}

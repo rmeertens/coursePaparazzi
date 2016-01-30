@@ -20,41 +20,49 @@ This week is a very exciting week: you will have your first manual flight and yo
 \end{itemize}
 
 \subsection*{Downloading and installing Paparazzi}
-Paparazzi only runs on Linux. If you have your own Virtualbox or Linux installed you can follow the instructions on this site: http://wiki.paparazziuav.org/wiki/Installation and watch this video: https://www.youtube.com/watch?v=eW0PCSjrP78
+Paparazzi only runs on Linux. If you have your own Virtualbox or Linux installed you can follow the instructions on this site: http://wiki.paparazziuav.org/wiki/Installation and watch this video: \url{https://www.youtube.com/watch?v=eW0PCSjrP78}.
 If not, you can download a pre-made virtual box that has everything installed here: XXXX
 
 \subsection*{Uploading your first program}
-You will now upload your first program to the Bebop. There is only a tutorial video for another Parrot drone, the ARdrone 2. As these drones are very similar, you can learn how to upload your first program by watching this video: https://www.youtube.com/watch?v=eojAPZvT1Ck
+You will now upload your first program to the Bebop. There is only a tutorial video for another Parrot drone, the ARdrone 2. As these drones are very similar, you can learn how to upload your first program by watching this video: \url{https://www.youtube.com/watch?v=eojAPZvT1Ck}.
 
 \subsection*{Fly manually with a joystick }
 Now it's time to test if your drone works by flying it. Plug in your Hobbyking joystick and check that:
 \begin{itemize}
 \item You started the paparazzi ground station (and have a datalink with the drone)
 \item You started the joystick program and use the file hobbyking.xml
-\item When you switch the mode switch (upper left switch), the mode changes in the Paparazzi ground station.
+\item When you switch the mode switch (upper left switchon the hobbyking joystick), the mode changes in the Paparazzi ground station.
 \end{itemize}
 
-We start by checking if the drone works by holding it in our hand. Put the drone in ATT mode and arm the motors by putting the left stick to the lower-right position. If everything went well the motors should now spin slowly. Put the left stick up to give more throttle and verify that this works. Now try if pitch and roll work with the right stick. 
+We start by checking if the drone works by holding it in our hand very firmly while wearing safety glasses. Put the drone in ATT mode and arm the motors by putting the left stick to the lower-right position. If everything went well the motors should now spin slowly. Put the left stick up to give more throttle and verify that this works. Now try if pitch and roll work with the right stick. 
 Also test if the drone steers in the correct direction when turning the drone with your hand. If the drone is tilted to the left it should give more thrust with its leftmost propellors. 
 
 If all these checks worked it is time to start your first manual drone-flight! 
 
 \subsection*{Using the Optitrack system}
-To use the Optitrack system, view this video: https://www.youtube.com/watch?v=7t6oqgIWGMc
-As soon as you have a 3D fix carry your drone through the arena and verify that:
+To use the Optitrack system, view this video: \url{https://www.youtube.com/watch?v=7t6oqgIWGMc}.
+To make sure you don't lose GPS while flying, check that:
+\begin{itemize}
+\item You applied the markers correctly 
+\item The markers are visible to the software (no blinking spots in the Optitrack software)
+\item Optitrack is callibrated
+\end{itemize}
+
+As soon as you have a 3D fix it is time to test your drone manually by carrying your drone through the arena. Verify that:
 \begin{itemize}
 \item The position of your drone is correct: if you walk to the left the drone on your GCS will go to the left.
 \item The heading of your drone is correct: point your drone in different directions and verify the drone is looking in the right direction on your ground station.
-\item The positions of your waypoints are correct: walk with your drone to the waypoints in your flight plan and verify that they are inside the arena and safely reachable for the drone. 
+\item The positions of your waypoints are correct: walk with your drone to the waypoints in your flight plan and verify that they are inside the arena (not too close to the nets) and safely reachable for the drone. 
 \end{itemize}
 
 \subsection*{Your first autonomous flight}
+First test your flightplan in the Paparazzi simulator. Make sure you know what every button in your groundstation does.
 If and only if you verified that everything mentioned above is correctly working (is the joystick still working so you can take over?) you can start your first autonomous flight. 
-Set the drone in navigation mode and select start motor in the ground control station. If your flight plan is correct the drone will now hover in the arena. Congratulations: you are now flying autonomously!
+Set the drone in navigation mode (if you don't know what this is, watch the videos again) and select start motor in the ground control station. If your flight plan is correct the drone will now hover in the arena. Congratulations: you are now flying autonomously! Please don't get distracted now: keep monitoring your drone and be ready to take over. Also remember to check your battery voltage as it might drop very fast. 
 
 You already checked your waypoints before, let the drone fly to one of them. To to so, select a block in your flight plan which has a certain waypoint as goal. 
 \subsection*{Edit your flightplan}
-Now the power of Paparazzi is in your hands: you can now create a totally autonomous drone with the power of a flightplan. Read this page to understand what you can do: http://wiki.paparazziuav.org/wiki/Flight\_Plans. 
+Now the power of Paparazzi is in your hands: you can now create a totally autonomous drone with the power of a flightplan. Read this page to understand what you can do: \url{http://wiki.paparazziuav.org/wiki/Flight_Plans}. 
 Make sure you understand:
 \begin{itemize}
 	\item What a waypoint is, and what a sector is. 
@@ -70,8 +78,8 @@ Try to create a simple flightplan that performs something of your choice.
 Last week we discussed several problems that can make your drone crash, such as an empty battery, losing GPS or coming too close to the wall of the arena.
 When flying your drone you want your drone to do something as soon as these dangerous situations occur:
 \begin{itemize}
-\item If your battery is empty, you want to land
-\item If your GPS is lost you want to land
+\item If your battery is empty, you want to perform a normal landing
+\item If your GPS is lost, you want to perform a normal landing
 \item If you fly to the wall of the arena you want to stay at the last safe point you found. 
 \end{itemize}
 The Paparazzi flight plan allows you to create exceptions: when the check of that exception becomes true the drone will execute a certain block. Look at the airframe file XXX to see how these exceptions are implemented. 
