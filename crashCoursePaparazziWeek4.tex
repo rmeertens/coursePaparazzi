@@ -7,7 +7,7 @@
 \ccpmaketitle{Computer vision}{\ldots Making your drone see something}{lesson 4}
 
 \subsection*{Introduction}
-Welcome to the most important part of this course: understanding how vision works. When using image processing right your drone can perform the most awesome tricks. However: when you do it wrong your drone will fall to the ground. 
+Welcome to the most important part of this course: understanding how vision works. When using image processing right your drone can perform the most awesome tricks. However: when you do it wrong your drone will crash. 
 
 \subsection*{Goals of this exercise}
 \begin{itemize}
@@ -58,7 +58,7 @@ v_max = 255
 \end{verbatim}
 \includegraphics[width=0.8\linewidth]{filtered}
 
-Note that you should NEVER stream images while flying. Note that streaming images takes a huge amount of bandwith. This can cause your joystick of optitrack position commands to be delayed (causing instability) or not even arrive. Make sure you only download very limited amounts of images while flying. A ruile of thumb is 4Hz of 70% mjpeg encoded images of 320x240 or less.  
+Note that you should NEVER stream images while flying. Note that streaming images takes a huge amount of bandwith. This can cause your joystick of optitrack position commands to be delayed (causing instability) or not even arrive. Make sure you only download very limited amounts of images while flying. A rule of thumb is 4Hz of 70\% mjpeg encoded images of 320x240 or less.  
 
 Take some time to check what the colorfilter does in the file colorfilter.c. 
 
@@ -87,7 +87,7 @@ bool_t colorfilter_func(struct image_t* img)
 \includegraphics[width=0.8\linewidth]{camerafilter}
 
 Note that the order in which you call cv\_add is important. The first function to get the image might edit the image. If you add modules that do something with the image, the first module you added in your airframe file will get the image first. The reason that the image might be changed is because the functions is passed a pointer to the image. 
-As the argument the function gets is a pointer to an image it is possible for a module to change the actual image. If you take a look at the colorfilter function you see this module does this. Colorfilter sets UV to zero (makes the nonfiltered image grayscale) and enhances the color at the filtered colors. A second module added after the colorfilter will see a gray image with some enhanced colours. 
+The argument the function gets is a pointer to an image it is possible for a module to change the actual image. If you take a look at the colorfilter function you see this module does this. Colorfilter sets UV to zero (makes the nonfiltered image grayscale) and enhances the color at the filtered colors. A second module added after the colorfilter will see a gray image with some enhanced colours. 
 
 \subsection*{The format of the image}
 The image you receive is yuv422, or UYVY. Per two pixels four bytes of data are recorded. The U and V together define the color and both pixels get the same color (but different intensity). Image.c has several functions that can be used with this format. Please take a look at this file and try to understand what these functions are doing, how you can use them, and what other functions would be useful. 
