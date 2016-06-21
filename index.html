@@ -25,6 +25,13 @@
         Looking for a gentle introduction to the Paparazzi autopilot? Use this one! If you have questions regarding paparazzi, please visit <a href="https://gitter.im/paparazzi/discuss">Gitter.im</a>.
         If you have questions regarding this course, feel free to contact me. 
 
+To use opencv:
+Make sure you have the latest version of the mavlabcourse branch from this remote: https://github.com/rmeertens/paparazzi
+navigate to your paparazzi folder and type: git submodule init && git submodule update
+go to paparazzi/sw/ext/opencv_bebop
+type make.
+This should take some time, and in the end you should have an install folder.
+Now you are ready to try the example cv_opencvdemo. In this example we convert the bebop image to grayscale, blur it and use a canny edge filter.
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/rmeertens/coursePaparazzi">Paparazzi course</a> is maintained by <a href="https://github.com/rmeertens">Roland Meertens</a>, Guido de Croon en Christophe de Wagter</span> This course was originally intended for use in the MAVLab<p></p>
            <img src="roland.jpeg"  style="height:204px"><img src="guido.jpg" style="height:204px"><img src="christophe.jpg" style="height:204px">
