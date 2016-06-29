@@ -69,7 +69,7 @@ Checking if the drone spent a long time in a block can be done in the block itse
 \end{verbatim}
 However, we will create this as a function in your module.h file as such:
 \begin{verbatim}
-extern void spentLongTimeInBlock(int timeInBlock){
+extern bool spentLongTimeInBlock(int timeInBlock){
 	return timeInBlock > 5;
 }
 \end{verbatim}
