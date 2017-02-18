@@ -6,7 +6,7 @@
 \ccpmaketitle{Using optitrack and programming your own flightplan}{\ldots Your first autonomous flight}{Lesson 2}
 
 \subsection*{Introduction}
-This week is a very exciting week: you will have your first manual flight and you will perform your first autonomous flight. Although there is a written document in front of you, you will mainly use our video tutorials on Youtube. This document will merely guide you through the videos, consider the videos as your main resource if you have questions. 
+This week is a very exciting week: you will have your first manual flight and you will perform your first autonomous flight. Although there is a written document in front of you, you will mainly use our video tutorials on Youtube. This document will merely guide you through the videos\footnote{The movies are somewhat outdated, yet still highly relevant. Please also refer to the installation manual, which is part of this document.}, consider the videos as your main resource if you have questions. 
 
 \subsection*{Goals of this today}
 \begin{itemize}
@@ -21,11 +21,13 @@ This week is a very exciting week: you will have your first manual flight and yo
 
 \subsection*{Downloading and installing Paparazzi}
 Paparazzi only runs on Linux. If you Linux installed as the native OS or as a dual boot you can follow the instructions on this site: http://wiki.paparazziuav.org/wiki/Installation and watch this video: \url{https://www.youtube.com/watch?v=eW0PCSjrP78}.
-If not, you can download a pre-made virtual box that has everything installed here: \url{https://mega.nz/#!1JpTiTjS!GdAHpa-_FAQAFPNypp3a3Up0B0yo1kYLXi3YLMXSAoo}.
+If not, you can download a pre-made virtual box that has everything installed here: \url{[REPLACE BY VM URL]}.
 The password for this virtual box is "mavlabcourse" (the same as the username). 
 
-Please checkout the branch mavlabcourse on this repository: \url{https://github.com/rmeertens/paparazzi}.
-When starting paparazzi with the start.py program, make sure you select as Conf: TUDELFT/course\_conf.xml and as Controlpanel: TUDELFT/course\_control\_panel.xml. 
+Please checkout the branch mavlabcourse on this repository: \url{https://github.com/tudelft/paparazzi}.
+When starting paparazzi with the start.py program \fbox{/paparazzi\$python start.py}, make sure you select as Conf: \fbox{userconf/TUDELFT/tudelft\_course2017\_conf.xml} and as Controlpanel:
+
+\fbox{userconf/TUDELFT/tudelft\_course2017\_control\_panel.xml}. 
 \subsection*{Uploading your first program}
 You will now upload your first program to the Bebop. There is only a tutorial video for another Parrot drone, the ARdrone 2. As these drones are very similar, you can learn how to upload your first program by watching this video: \url{https://www.youtube.com/watch?v=eojAPZvT1Ck}.
 
@@ -43,7 +45,7 @@ Also test if the drone steers in the correct direction when turning the drone wi
 If all these checks worked it is time to start your first manual drone-flight! 
 
 \subsection*{Using the Optitrack system}
-To use the Optitrack system, view this video: \url{https://www.youtube.com/watch?v=7t6oqgIWGMc}.
+To use the Optitrack system, view this video: \url{https://www.youtube.com/watch?v=7t6oqgIWGMc}\footnote{The field Rigid Body ID is called user\_data in later versions of motive, and due to a bug in the current version this number cannot be changed.}\footnote{Due to the installment of grass in the cyberzoo there is currently no arrow, register your drone in the optitrack pointing the same way as the video.}.
 To make sure you don't lose GPS while flying, check that:
 \begin{itemize}
 \item You applied the markers correctly 
@@ -61,9 +63,9 @@ As soon as you have a 3D fix it is time to test your drone manually by carrying 
 \subsection*{Your first autonomous flight}
 First test your flightplan in the Paparazzi simulator. Make sure you know what every button in your groundstation does.
 If and only if you verified that everything mentioned above is correctly working (is the joystick still working so you can take over?) you can start your first autonomous flight. 
-Set the drone in navigation mode (if you don't know what this is, watch the videos again) and select start motor in the ground control station. If your flight plan is correct the drone will now hover in the arena. Congratulations: you are now flying autonomously! Please don't get distracted now: keep monitoring your drone and be ready to take over. Also remember to check your battery voltage as it might drop very fast. 
+Set the drone in navigation mode (if you don't know what this is, watch the videos again) and select start engines in the ground control station. If your flight plan is correct the drone will now hover in the arena. Congratulations: you are now flying autonomously! Please don't get distracted now: keep monitoring your drone and be ready to take over. Also remember to check your battery voltage as it might drop very fast. 
 
-You already checked your waypoints before, let the drone fly to one of them. To to so, select a block in your flight plan which has a certain waypoint as goal. 
+You already checked your waypoints before, let the drone fly to one of them. To do so, select a block in your flight plan which has a certain waypoint as goal. 
 \subsection*{Edit your flightplan}
 Now the power of Paparazzi is in your hands: you can now create a totally autonomous drone with the power of a flightplan. Read this page to understand what you can do: \url{http://wiki.paparazziuav.org/wiki/Flight_Plans}. 
 Make sure you understand:
@@ -85,5 +87,54 @@ When flying your drone you want your drone to do something as soon as these dang
 \item If your GPS is lost, you want to perform a normal landing
 \item If you fly to the wall of the arena you want to stay at the last safe point you found. 
 \end{itemize}
-The Paparazzi flight plan allows you to create exceptions: when the check of that exception becomes true the drone will execute a certain block. Look at the flight plan file flight\_plans/TUDELFT/tudelft\_course2016\_avoid\_orange.xml to see how these exceptions are implemented. 
+The Paparazzi flight plan allows you to create exceptions: when the check of that exception becomes true the drone will execute a certain block. Look at the flight plan file 
+
+\fbox{flight\_plans/TUDELFT/tudelft\_course2017\_avoid\_orange.xml} to see how these exceptions are implemented. 
+
+\section*{Installation manual}
+
+This manual is only required if you aren't using the supplied VM.\\
+
+\noindent To get the TUDELFT/mavlabCourse branch working there are some instruction you'll have to follow. The instructions are straightforward and should be easy enough to follow. Try to understand why every step is neccesary, this will improve your understanding of how everything works.
+
+\begin{enumerate}
+\item{Install Paparazzi UAV as mentioned in \url{http://wiki.paparazziuav.org/wiki/Installation}. It is recommended for Ubuntu users to use the one-liner.}
+\item{Open a terminal window and navigate to the paparazzi folder "\$ cd paparazzi". Add the mavlabCourse remote "\$ git remote add mavlabCourse https://github.com/tudelft/paparazzi", and update using "\$ git fetch mavlabCourse mavlabCourse"}
+\item{Checkout the mavlabCourse branch using "\$ git checkout mavlabCourse"}
+\item{Sync, initialize and update the submodules using:
+\begin{enumerate}
+\item{"\$ git submodule sync"}
+\item{"\$ git submodule init"}
+\item{"\$ git submodule update"}
+\end{enumerate}
+}
+\item{Build paparazzi by using "\$ make"}
+\item{Select the right conf and control\_panel files using "\$ python start.py"}
+\item{Install the toolchain used by Parrot to build software for the bebop.
+\begin{enumerate}
+\item{Go to the bebop tools folder using "\$ cd ./sw/tools/parrot/bebop"}
+\item{Install gdebi using "\$ sudo apt-get install gdebi"}
+\item{Install the toolchain using "\$ gdebi ./parrot-tools-linuxgnutools-2012.03\_1.0.0-1\_i386.deb"}
+\end{enumerate}
+}
+\item{Prepare OpenGL ES
+\begin{enumerate}
+\item{Go to the libopengles directory using "\$ cd ../../../ext/libopengles/lib/arm"}
+\item{Make OpenGL ES using "\$ make"}
+\end{enumerate}
+}
+\item{Install ffmpeg, vlc and java using "\$ sudo apt-get install ffmpeg vlc default-jre"}
+\item{Install eclipse to easilly navigate through the paparazzi source code.
+\begin{enumerate}
+\item{Download the eclipse-installer from \url{https://www.eclipse.org/downloads/download.php?file=/oomph/epp/neon/R2a/eclipse-inst-linux64.tar.gz}}
+\item{Navigate to the Downloads directory and double click the eclipse installer}
+\item{Select the C/C++ version}
+\item{It is recommended to use the default installation directory}
+\item{After eclipse is installed start eclipse}
+\item{Navigate to "File - New - Makefile Project with Existing Code}
+\item{Name the project paparazzi select the paparazzi installation location and keep the default options}
+\end{enumerate}
+}
+\item{You can now enjoy running paparazzi and developing paparazzi in eclipse. Run paparazzi at any time by either the .desktop file located in "./conf/system/launcher/Paparazzi.desktop" or by using "\$ ./paparazzi" from the paparazzi folder.}
+\end{enumerate}
 \end{document}

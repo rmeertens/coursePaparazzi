@@ -4,13 +4,13 @@
 all:  crashCoursePaparazziPart1.pdf  crashCoursePaparazziPart2.pdf  crashCoursePaparazziPart3.pdf  crashCoursePaparazziPart4.pdf
 
 crashCoursePaparazziPart1.pdf: crashCoursePaparazziWeek1.tex
-	pdflatex crashCoursePaparazziWeek1.tex -job-name=crashCoursePaparazziPart1
+	pdflatex -jobname=crashCoursePaparazziPart1 crashCoursePaparazziWeek1.tex
 crashCoursePaparazziPart2.pdf: crashCoursePaparazziWeek2.tex
-	pdflatex crashCoursePaparazziWeek2.tex -job-name=crashCoursePaparazziPart2
+	pdflatex -jobname=crashCoursePaparazziPart2 crashCoursePaparazziWeek2.tex 
 crashCoursePaparazziPart3.pdf: crashCoursePaparazziWeek3.tex
-	pdflatex crashCoursePaparazziWeek3.tex -job-name=crashCoursePaparazziPart3
+	pdflatex -jobname=crashCoursePaparazziPart3 crashCoursePaparazziWeek3.tex
 crashCoursePaparazziPart4.pdf: crashCoursePaparazziWeek4.tex
-	pdflatex crashCoursePaparazziWeek4.tex -job-name=crashCoursePaparazziPart4
+	pdflatex -jobname=crashCoursePaparazziPart4 crashCoursePaparazziWeek4.tex
 
 export: crashCoursePaparazziPart1.pdf crashCoursePaparazziPart2.pdf crashCoursePaparazziPart3.pdf crashCoursePaparazziPart4.pdf
 	git stash && git checkout build && git stash pop

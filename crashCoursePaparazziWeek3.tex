@@ -34,7 +34,7 @@ First check that the module you want to have does not exist already. Be sure to 
 Create a module now, add it to your airframe file, and recompile everything. 
 
 \subsection*{Learning how to debug}
-When programming your drone you could encounter that the drone does not do what you expected from the first time. In that case there are two ways to check what the values of variables on your drone are:
+When programming your drone you could encounter that the drone does not do what you expected the first time around. In that case there are two ways to check what the values of variables on your drone are:
 \begin{itemize}
 	\item Paparazzi messages
 	\item Printing to the terminal
@@ -65,7 +65,7 @@ Let's try to create the following behaviour:
 \end{itemize}
 Checking if the drone spent a long time in a block can be done in the block itself with the line:
 \begin{verbatim}
-<exception "gt(block_time,5)" /> 
+<exception cond="LessThan(5, block_time)" deroute="Standby" /> 
 \end{verbatim}
 However, we will create this as a function in your module.h file as such:
 \begin{verbatim}
@@ -75,7 +75,7 @@ extern bool spentLongTimeInBlock(int timeInBlock){
 \end{verbatim}
 And add it to our block:
 \begin{verbatim}
-<exception spentLongTimeInBlock(block_time)/>
+<exception cond="spentLongTimeInBlock(block_time)" deroute="Standby"/>
 \end{verbatim}
 Fly and verify that your program works. Now you know that you can add complex functions in your module, and call them from your flightplan. 
 You are now also able to create exceptions yourself!

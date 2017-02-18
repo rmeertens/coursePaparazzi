@@ -21,30 +21,37 @@ To get data out of the camera in paparazzi you have to include the video\_thread
 If you want to see what the image looks like after it comes out of the camera or the color filter you have to can also include the video\_rtp\_stream  module. 
 The modules part of your airframe file might now look like this:
 \begin{verbatim}
-  <modules main_freq="512">
-    <load name="geo_mag.xml"/>
-    <load name="air_data.xml"/>
-    <load name="send_imu_mag_current.xml"/>
-    <load name="video_thread.xml">
-      <define name="VIDEO_THREAD_FPS" value="4"/>
-      <define name="VIDEO_THREAD_CAMERA" value="front_camera"/>
-      <define name="VIDEO_THREAD_SHOT_PATH" value="/data/ftp/internal_000/images"/>
-    </load>
-    <load name="cv_colorfilter.xml">
-    </load>
-    <load name="video_rtp_stream.xml">
-     <define name="VIEWVIDEO_DOWNSIZE_FACTOR" value="1"/>
-     <define name="VIEWVIDEO_QUALITY_FACTOR" value="70"/>
-    </load>
-  </modules>
+<modules main_freq="512">
+  <module name="geo_mag" />
+  <module name="air_data" />
+  <module name="send_imu_mag_current" />
+  <module name="logger_file">
+    <define name="FILE_LOGGER_PATH" value="/data/ftp/internal_000" />
+  </module>
+  <!-- Video/Camera modules -->
+  <module name="video_thread" />
+  <module name="cv_ae_awb">
+    <define name="CV_AE_AWB_AV" value="1" />
+    <define name="CV_AE_AWB_VERBOSE" value="0" />
+  </module>
+  <module name="cv_colorfilter">
+    <define name="COLORFILTER_CAMERA" value="front_camera" />
+  </module>
+  <module name="orange_avoider" />
+  <module name="video_rtp_stream">
+    <configure name="VIEWVIDEO_HOST" value="192.168.42.65" />
+    <configure name="VIEWVIDEO_BROADCAST" value="FALSE" />
+    <define name="VIEWVIDEO_CAMERA" value="front_camera" />
+    <define name="VIEWVIDEO_SHOT_PATH" value="/data/ftp/internal_000" />
+    <define name="VIEWVIDEO_FPS" value="18" />
+    <define name="VIEWVIDEO_WRITE_VIDEO" value="FALSE" />
+    <define name="VIEWVIDEO_VIDEO_FILE" value="orangeAvoider" />
+    <define name="VIEWVIDEO_STREAM_VIDEO" value="TRUE" />
+  </module>
+</modules>
 \end{verbatim}
-Upload this to your bebop. To view the video you create a .dsp file and copy paste this:
-\begin{verbatim}
-v=0
-m=video 5000 RTP/AVP 26
-c=IN IP4 0.0.0.0
-\end{verbatim}
-Open this file in VLC and you should see an image. 
+Upload this to your bebop. To view the video you open the .sdp (stream description protocol) file from the bebop in vlc: vlc ftp://192.168.42.1/internal\_000/stream.sdp or use the Bebop Video Stream tool from within paparazzi.
+ 
 If you open your ground control station and go to settings--ColorFilter you can change what is filtered by the colorfilter. Look at the YUV colorspace on Wikipedia (https://en.wikipedia.org/wiki/YUV) and try to find settings that filter the color orange. If you open the RTP stream you can see what pixels are selected, they become red. 
 
 In the lab we tried filtering the color red, as found on our hands and little red and green balls. We used the following values, and obtained the following result:
@@ -58,16 +65,16 @@ v_max = 255
 \end{verbatim}
 \includegraphics[width=0.8\linewidth]{filtered}
 
-Note that you should NEVER stream images while flying. Note that streaming images takes a huge amount of bandwith. This can cause your joystick of optitrack position commands to be delayed (causing instability) or not even arrive. Make sure you only download very limited amounts of images while flying. A rule of thumb is 4Hz of 70\% mjpeg encoded images of 320x240 or less.  
+Note that streaming images takes a large amount of bandwith. This could cause your joystick of optitrack position commands to be delayed (causing instability) or not even arrive.\\
 
-Take some time to check what the colorfilter does in the file colorfilter.c. 
+\noindent Take some time to check what the colorfilter does in the file colorfilter.c. 
 
-In the colorfilter\_init function the function cv\_add is called with as argument the colorfilter\_func function:
+In the colorfilter\_init function the function cv\_add\_to\_device is called with as argument the colorfilter\_func function and the front camera:
 \begin{verbatim}
 
 void colorfilter_init(void)
 {
-  cv_add(colorfilter_func);
+  listener = cv_add_to_device(&COLORFILTER_CAMERA, colorfilter_func);
 }
 
 \end{verbatim}
