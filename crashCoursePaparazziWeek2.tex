@@ -14,6 +14,7 @@ This week is a very exciting week: you will have your first manual flight and yo
 \item Upload a program to your drone
 \item Fly manually with your drone
 \item Get a 3D fix on your drone
+\item Simulate your first autonomous flight
 \item Perform your first autonomous flight
 \item Edit your flightplan
 \item Create a safety rule
@@ -44,7 +45,7 @@ Now it's time to test if your drone works by flying it. Plug in your Hobbyking j
 \begin{itemize}
 \item You started the paparazzi ground station (and have a datalink with the drone)
 \item You started the joystick program and use the file hobbyking.xml
-\item When you switch the mode switch (upper left switchon the hobbyking joystick), the mode changes in the Paparazzi ground station.
+\item When you switch the mode switch (upper left switch on the hobbyking joystick), the mode changes in the Paparazzi ground station.
 \end{itemize}
 
 We start by checking if the drone works by holding the 'cross' of the drone hand very firmly (with your hands away from the propellors) while wearing safety glasses. Put the drone in ATT mode and arm the motors by putting the left stick to the lower-right position. If everything went well the motors should now spin slowly. Put the left stick up to give more throttle and verify that this works. Now try if pitch and roll work with the right stick. 
@@ -68,12 +69,28 @@ As soon as you have a 3D fix it is time to test your drone manually by carrying 
 \item The positions of your waypoints are correct: walk with your drone to the waypoints in your flight plan and verify that they are inside the arena (not too close to the nets) and safely reachable for the drone. 
 \end{itemize}
 
-\subsection*{Your first autonomous flight}
+
+\section*{Your first autonomous flight}
+\subsection*{Simulating your autonomous flight}
+Before uploading your autonomous flight plan to the Bebop, you should first verify that everything works correctly in simulation.
+The simulation can be started as follows:
+\begin{enumerate}
+\item Select the `nps' target.
+\item Press clean and build.
+\item Select the `Simulation' session and press Execute.
+\item Run `gzclient' from a terminal to view the simulation.
+\end{enumerate}
+In the ground control station, double-click on the `Start Engine' block, then on `Takeoff'. The drone will now hover. Double-click on 'START' to start the example flight plan in which the drone tries to avoid the orange obstacles.
+
+Apart from testing flight plans, the simulator can also be used to practice your manual flying skills. It is very important to test if you can fly a drone nose-in (with its nose pointing towards you). When you can do this perfectly you can consider yourself good enough to serve as a safety pilot during this course. 
+
+\subsection*{Autonomous flight with the Bebop}
 First test your flightplan in the Paparazzi simulator. Make sure you know what every button in your groundstation does.
 If and only if you verified that everything mentioned above is correctly working (is the joystick still working so you can take over?) you can start your first autonomous flight. 
-Set the drone in navigation mode (if you don't know what this is, watch the videos again) and select start engines in the ground control station. If your flight plan is correct the drone will now hover in the arena. Congratulations: you are now flying autonomously! Please don't get distracted now: keep monitoring your drone and be ready to take over. Also remember to check your battery voltage as it might drop very fast. 
 
-You already checked your waypoints before, let the drone fly to one of them. To do so, select a block in your flight plan which has a certain waypoint as goal. 
+Upload your code to the Bebop and set up the Optitrack system.
+Then, set the drone in navigation mode (if you don't know what this is, watch the videos again) and select `Start engine' and `Takeoff' in the ground control station. If your flight plan is correct the drone will now hover in the arena. Congratulations: you are now flying autonomously! Please don't get distracted now: keep monitoring your drone and be ready to take over. Also remember to check your battery voltage as it might drop very fast. 
+
 \subsection*{Edit your flightplan}
 Now the power of Paparazzi is in your hands: you can now create a totally autonomous drone with the power of a flightplan. Read this page to understand what you can do: \url{http://wiki.paparazziuav.org/wiki/Flight_Plans}. 
 Make sure you understand:
@@ -99,6 +116,7 @@ The Paparazzi flight plan allows you to create exceptions: when the check of tha
 
 \fbox{flight\_plans/tudelft/course2018\_orangeavoid\_cyberzoo.xml} to see how these exceptions are implemented. 
 
+\clearpage
 \section*{Installation manual}
 
 This manual is only required if you aren't using the supplied USB image.\\
