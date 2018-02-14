@@ -20,16 +20,24 @@ This week is a very exciting week: you will have your first manual flight and yo
 \end{itemize}
 
 \subsection*{Downloading and installing Paparazzi}
-Paparazzi only runs on Linux. If you Linux installed as the native OS or as a dual boot you can follow the instructions on this site: \url{http://wiki.paparazziuav.org/wiki/Installation} and watch this video: \url{https://www.youtube.com/watch?v=eW0PCSjrP78}.
-If not, you can download a pre-made virtual box that has everything installed here: \url{https://www.openuas.org/pub/mirrors/mc/Ubuntu%20MAVLab%20Course%202017.vdi}.
-The password for this virtual box is "mavlabcourse" (the same as the username). 
+Paparazzi only runs on Linux. If Linux is installed as the native OS or as a dual boot you can follow the instructions on this site: \url{http://wiki.paparazziuav.org/wiki/Installation} and watch this video: \url{https://www.youtube.com/watch?v=eW0PCSjrP78}. A summary of the installation steps is included at the end of this document.
+If you do not have a working Linux installation, you can create a bootable USB stick with Linux and Paparazzi. Refer to the mavlab course website \url{https://tudelft.github.io/coursePaparazzi/} for more information.
 
-Please checkout the branch mavlabcourse on this repository: \url{https://github.com/tudelft/paparazzi}.
-When starting paparazzi with the start.py program \fbox{/paparazzi\$python start.py}, make sure you select as Conf: \fbox{userconf/TUDELFT/tudelft\_course2018\_conf.xml} and as Controlpanel:
+Please checkout the branch mavlabCourse2018 on this repository: \url{https://github.com/tudelft/paparazzi}.
+When starting paparazzi with the start.py program \fbox{/paparazzi\$ python start.py}, make sure you select as Conf: \fbox{userconf/tudelft/course2018\_conf.xml} and as Controlpanel:\\ \fbox{userconf/tudelft/course2018\_control\_panel.xml}. 
 
-\fbox{userconf/TUDELFT/tudelft\_course2018\_control\_panel.xml}. 
 \subsection*{Uploading your first program}
-You will now upload your first program to the Bebop. There is only a tutorial video for another Parrot drone, the ARdrone 2. As these drones are very similar, you can learn how to upload your first program by watching this video: \url{https://www.youtube.com/watch?v=eojAPZvT1Ck}.
+You will now upload your first program to the Bebop.
+The following video shows how to upload your program: \url{https://youtu.be/8qlilEMgPno?t=34s}.
+In short:
+\begin{enumerate}
+\item Turn on the Bebop.
+\item Once the light stops flashing, press the on button four times.
+\item Connect to the Bebop's WiFi access point. (Note: disable and re-enable the WiFi in Ubuntu if the Bebop does not directly appear in the list of networks.)
+\item In paparazzi, select the 'ap' target and press clean, build and upload.
+\end{enumerate}
+
+
 
 \subsection*{Fly manually with a joystick }
 Now it's time to test if your drone works by flying it. Plug in your Hobbyking joystick and check that:
@@ -48,9 +56,9 @@ If all these checks worked it is time to start your first manual drone-flight!
 To use the Optitrack system, view this video: \url{https://www.youtube.com/watch?v=7t6oqgIWGMc}\footnote{The field Rigid Body ID is called user\_data in later versions of motive, and due to a bug in the current version this number cannot be changed.}\footnote{Due to the installment of grass in the cyberzoo there is currently no arrow, register your drone in the optitrack pointing the same way as the video.}.
 To make sure you don't lose GPS while flying, check that:
 \begin{itemize}
-\item You applied the markers correctly 
+\item The markers are applied correctly 
 \item The markers are visible to the software (no blinking spots in the Optitrack software)
-\item Optitrack is callibrated
+\item Optitrack is calibrated
 \end{itemize}
 
 As soon as you have a 3D fix it is time to test your drone manually by carrying your drone through the arena. Verify that:
@@ -89,17 +97,17 @@ When flying your drone you want your drone to do something as soon as these dang
 \end{itemize}
 The Paparazzi flight plan allows you to create exceptions: when the check of that exception becomes true the drone will execute a certain block. Look at the flight plan file 
 
-\fbox{flight\_plans/TUDELFT/tudelft\_course2018\_avoid\_orange.xml} to see how these exceptions are implemented. 
+\fbox{flight\_plans/tudelft/course2018\_orangeavoid\_cyberzoo.xml} to see how these exceptions are implemented. 
 
 \section*{Installation manual}
 
-This manual is only required if you aren't using the supplied VM.\\
+This manual is only required if you aren't using the supplied USB image.\\
 
-\noindent To get the TUDELFT/mavlabCourse branch working there are some instruction you'll have to follow. The instructions are straightforward and should be easy enough to follow. Try to understand why every step is neccesary, this will improve your understanding of how everything works.
+\noindent To get the tudelft/mavlabCourse2018 branch working there are some instructions you'll have to follow. The instructions are straightforward and should be easy enough to follow. Try to understand why every step is neccesary, this will improve your understanding of how everything works.
 
 \begin{enumerate}
 \item{Install Paparazzi UAV as mentioned in \url{http://wiki.paparazziuav.org/wiki/Installation}. It is recommended for Ubuntu users to use the one-liner.}
-\item{Open a terminal window and navigate to the paparazzi folder "\$ cd paparazzi". Add the mavlabCourse remote "\$ git remote add mavlabCourse https://github.com/tudelft/paparazzi", and update using "\$ git fetch mavlabCourse mavlabCourse"}
+\item{Open a terminal window and navigate to the paparazzi folder "\$ cd paparazzi". Add the mavlabCourse remote "\$ git remote add mavlabCourse https://github.com/tudelft/paparazzi", and update using "\$ git fetch mavlabCourse2018 mavlabCourse2018"}
 \item{Checkout the mavlabCourse branch using "\$ git checkout mavlabCourse"}
 \item{Sync, initialize and update the submodules using:
 \begin{enumerate}
@@ -110,19 +118,6 @@ This manual is only required if you aren't using the supplied VM.\\
 }
 \item{Build paparazzi by using "\$ make"}
 \item{Select the right conf and control\_panel files using "\$ python start.py"}
-\item{Install the toolchain used by Parrot to build software for the bebop.
-\begin{enumerate}
-\item{Go to the bebop tools folder using "\$ cd ./sw/tools/parrot/bebop"}
-\item{Install gdebi using "\$ sudo apt-get install gdebi"}
-\item{Install the toolchain using "\$ gdebi ./parrot-tools-linuxgnutools-2012.03\_1.0.0-1\_i386.deb"}
-\end{enumerate}
-}
-\item{Prepare OpenGL ES
-\begin{enumerate}
-\item{Go to the libopengles directory using "\$ cd ../../../ext/libopengles/lib/arm"}
-\item{Make OpenGL ES using "\$ make"}
-\end{enumerate}
-}
 \item{Install ffmpeg, vlc and java using "\$ sudo apt-get install ffmpeg vlc default-jre"}
 \item{Install eclipse to easilly navigate through the paparazzi source code.
 \begin{enumerate}
