@@ -21,34 +21,30 @@ To get data out of the camera in paparazzi you have to include the video\_thread
 If you want to see what the image looks like after it comes out of the camera or the color filter you have to can also include the video\_rtp\_stream  module. 
 The modules part of your airframe file might now look like this:
 \begin{verbatim}
-<modules main_freq="512">
-  <module name="geo_mag" />
-  <module name="air_data" />
-  <module name="send_imu_mag_current" />
-  <module name="logger_file">
-    <define name="FILE_LOGGER_PATH" value="/data/ftp/internal_000" />
-  </module>
-  <!-- Video/Camera modules -->
-  <module name="video_thread" />
-  <module name="cv_ae_awb">
-    <define name="CV_AE_AWB_AV" value="1" />
-    <define name="CV_AE_AWB_VERBOSE" value="0" />
-  </module>
-  <module name="cv_colorfilter">
-    <define name="COLORFILTER_CAMERA" value="front_camera" />
-  </module>
-  <module name="orange_avoider" />
-  <module name="video_rtp_stream">
-    <configure name="VIEWVIDEO_HOST" value="192.168.42.65" />
-    <configure name="VIEWVIDEO_BROADCAST" value="FALSE" />
-    <define name="VIEWVIDEO_CAMERA" value="front_camera" />
-    <define name="VIEWVIDEO_SHOT_PATH" value="/data/ftp/internal_000" />
-    <define name="VIEWVIDEO_FPS" value="18" />
-    <define name="VIEWVIDEO_WRITE_VIDEO" value="FALSE" />
-    <define name="VIEWVIDEO_VIDEO_FILE" value="orangeAvoider" />
-    <define name="VIEWVIDEO_STREAM_VIDEO" value="TRUE" />
-  </module>
-</modules>
+  <firmware name="rotorcraft">
+    ...
+    <!-- Video/Camera modules -->
+    <module name="video_thread" />
+    <!--module name="cv_ae_awb">
+      <define name="CV_AE_AWB_AV" value="1" />
+      <define name="CV_AE_AWB_VERBOSE" value="0" />
+    </module-->
+    <module name="cv_colorfilter">
+      <define name="COLORFILTER_CAMERA" value="front_camera" />
+    </module>
+    <module name="orange_avoider" />
+    <module name="video_rtp_stream">
+      <define name="VIEWVIDEO_CAMERA" value="front_camera" />
+      <define name="VIEWVIDEO_FPS" value="18" />
+      <define name="VIEWVIDEO_STREAM_VIDEO" value="TRUE" />
+      <define name="VIEWVIDEO_DOWNSIZE_FACTOR" value="1" />
+      
+      <define name="VIEWVIDEO_SHOT_PATH" value="/data/ftp/internal_000" />
+      
+      <!-- <define name="VIEWVIDEO_WRITE_VIDEO" value="FALSE" />
+      <define name="VIEWVIDEO_VIDEO_FILE" value="orangeAvoider" /> -->
+    </module>
+  </firmware>
 \end{verbatim}
 Upload this to your bebop. To view the video you open the .sdp (stream description protocol) file from the bebop in vlc: vlc ftp://192.168.42.1/internal\_000/stream.sdp or use the Bebop Video Stream tool from within paparazzi.
  
