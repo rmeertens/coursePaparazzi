@@ -46,7 +46,10 @@ The modules part of your airframe file might now look like this:
     </module>
   </firmware>
 \end{verbatim}
-Upload this to your bebop. To view the video you open the .sdp (stream description protocol) file from the bebop in vlc: vlc ftp://192.168.42.1/internal\_000/stream.sdp or use the Bebop Video Stream tool from within paparazzi.
+Upload this to your bebop.
+
+Start VLC and open \verb|conf/video.sdp| to view the video from the drone.
+The Bebop's camera is rotated by 90 degrees. You can correct this in VLC by going to `Tools $\rightarrow$ Effects and filters $\rightarrow$ Video Effects $\rightarrow$ Geometry', checking `Transform' and selecting `Rotate by 270 degrees' below it.
  
 If you open your ground control station and go to settings--ColorFilter you can change what is filtered by the colorfilter. Look at the YUV colorspace on Wikipedia (https://en.wikipedia.org/wiki/YUV) and try to find settings that filter the color orange. If you open the RTP stream you can see what pixels are selected, they become red. 
 
