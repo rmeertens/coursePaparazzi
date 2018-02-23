@@ -36,13 +36,10 @@ Create a module now, add it to your airframe file, and recompile everything.
 \subsection*{Learning how to debug}
 When programming your drone you could encounter that the drone does not do what you expected the first time around. In that case there are two ways to check what the values of variables on your drone are:
 \begin{itemize}
-	\item Paparazzi messages
 	\item Printing to the terminal
+	\item Paparazzi messages
 \end{itemize}
-To learn more about paparazzi messages check this webpage: \url{http://wiki.paparazziuav.org/wiki/Telemetry}
-Create a new message now and send an arbitrary value. Check if you receive it by running the messages program in Paparazzi. 
-
-As for printing to the terminal: you can use the following in your code:
+For printing to the terminal: you can use the following in your code:
 
 \begin{verbatim}
 printf("Integer variable: %d\n",myIntegerVariable);
@@ -55,6 +52,11 @@ killall -9 ap.elf
 ./ap.elf
 \end{verbatim}
 Your program is now restarted, and your message will appear in your terminal. 
+
+\bigskip
+To learn more about paparazzi messages check this webpage: \url{http://wiki.paparazziuav.org/wiki/Telemetry}.
+If conf/messages.xml does not exist, you should copy the file from \begin{verbatim}sw/ext/pprzlink/message_definitions/v1.0/\end{verbatim} to the conf directory.
+Create a new message now and send an arbitrary value. Check if you receive it by running the messages program in Paparazzi. 
 
 \subsection*{Making decisions onboard}
 As you saw last week you can leave blocks in your flight plan by adding an exception. Paparazzi allows you to use a variable of your module as a trigger for an exception. When the variable you selected is not equal to zero, the exception will occur and a next block is selected. 
